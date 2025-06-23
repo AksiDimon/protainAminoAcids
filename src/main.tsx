@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client'
 import "@fontsource/roboto"; // подключает Roboto
 
 import App from './App.tsx'
-import React from 'react';
 import { ThemeProvider, CssBaseline, createTheme } from '@mui/material';
 
 const theme = createTheme({
