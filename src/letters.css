@@ -1,0 +1,35 @@
+.aa {
+  display: inline-block;
+  padding: 2px 4px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  border-radius: 4px;
+}
+.aa-A { background-color: #67E4A6; }
+.aa-I { background-color: #67E4A6; }
+.aa-L { background-color: #67E4A6; }
+.aa-M { background-color: #67E4A6; }
+.aa-F { background-color: #67E4A6; }
+.aa-W { background-color: #67E4A6; }
+.aa-Y { background-color: #67E4A6; }
+.aa-V { background-color: #67E4A6; }
+.aa-P { background-color: #67E4A6; }
+
+.aa-C { background-color: #FFEA00; }
+
+.aa-G { background-color: #C4C4C4; }
+
+.aa-D { background-color: #FC9CAC; }
+.aa-E { background-color: #FC9CAC; }
+
+.aa-K { background-color: #BB99FF; }
+.aa-R { background-color: #BB99FF; }
+
+.aa-S { background-color: #80BFFF; }
+.aa-T { background-color: #80BFFF; }
+.aa-H { background-color: #80BFFF; }
+.aa-Q { background-color: #80BFFF; }
+.aa-N { background-color: #80BFFF; }
+
+/* И дополнительно общий класс, если понадобится */
+.aa { display: inline-block; padding: 2px 4px; margin-right: 4px; margin-bottom: 4px; border-radius: 4px; }

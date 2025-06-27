@@ -5,7 +5,7 @@
   "type": "module",
   "homepage": "https://aksidimon.github.io/protainAminoAcids/",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 0.0.0.0",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -15,8 +15,10 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@fontsource/roboto": "^5.2.6",
+    "@monaco-editor/react": "^4.7.0",
     "@mui/icons-material": "^7.1.2",
     "@mui/material": "^7.1.2",
+    "monaco-editor": "^0.52.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },

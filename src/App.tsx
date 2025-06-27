@@ -37,7 +37,7 @@ function App() {
   };
 
 
-  console.log(data, errors, '😍');
+  // console.log(data, errors, '😍');
 
   function handelDatas(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
