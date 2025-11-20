@@ -159,7 +159,7 @@
 //   );
 // }
 
-import { Box, Typography, useMediaQuery } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { colorsMap } from './types';
 import type { PropsSequence } from './types';
 
@@ -169,7 +169,7 @@ export function AlignmentViewer({
   showViewer,
   onCopy,
 }: PropsSequence) {
-  const isWide = useMediaQuery('(min-width:310px)');
+  // const isWide = useMediaQuery('(min-width:310px)');
   if (!showViewer) return null;
 
   // базовые стили
