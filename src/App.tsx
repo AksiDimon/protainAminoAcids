@@ -1,167 +1,105 @@
-import { useState, type FormEvent } from 'react';
-import {
-  Container,
-  Box,
-  Typography,
-  TextField,
-  Button,
-  Snackbar,
-} from '@mui/material';
+import { Box, Button, Container, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import SendIcon from '@mui/icons-material/Send';
 
-import { AlignmentViewer } from './AlignmentViewer';
-function validateAminoAcidSeq(seq: string): string | null {
-  if (seq.length === 0) {
-    return 'Заполните последовательность';
-  }
-  if (!/^[A-Za-z -]*$/.test(seq)) {
-    return 'Только латинские буквы допустимы';
-  }
-  if (!/^[ACDEFGHIKLMNPQRSTVWY-]*$/i.test(seq)) {
-    return 'В строке есть недопустимые аминокислоты';
-  }
-  return null;
-}
+const buttonStyles = {
+  textTransform: 'none',
+  fontWeight: 600,
+  borderRadius: '99px',
+  padding: '14px 22px',
+  fontSize: '0.98rem',
+  color: '#0b1d1d',
+  background: 'linear-gradient(135deg, #FFD7A8 0%, #FFF1B6 45%, #B9FBC0 100%)',
+  boxShadow: '0 10px 24px rgba(11, 29, 29, 0.18)',
+  transition: 'transform 180ms ease, box-shadow 180ms ease',
+  '&:hover': {
+    transform: 'translateY(-2px)',
+    boxShadow: '0 16px 36px rgba(11, 29, 29, 0.25)',
+    background:
+      'linear-gradient(135deg, #FFC894 0%, #FFE9A0 45%, #A9F5B6 100%)',
+  },
+};
 
 function App() {
-  const [data, setData] = useState({
-    input1: '',
-    input2: '',
-  });
-  const [errors, setErrors] = useState<Record<string, string | null>>({
-    input1: null,
-    input2: null,
-  });
-  const [showViewer, setShowViewer] = useState(false);
-
-  const [snackOpen, setSnackOpen] = useState(false);
-
   const navigate = useNavigate();
-  // функция, которую мы передадим в AlignmentViewer:
-  const handleCopy = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setSnackOpen(true);
-  };
-
-  function handelDatas(
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) {
-    const { name, value } = e.target;
-    setData((prev) => ({ ...prev, [name]: value.toUpperCase() }));
-  }
-
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    // const {name, value} = e.target;
-    const err1 = validateAminoAcidSeq(data.input1);
-    const err2 = validateAminoAcidSeq(data.input2);
-
-    if (
-      data.input1.length !== data.input2.length &&
-      err1 === null &&
-      err2 === null
-    ) {
-      setErrors({
-        input1: 'Длины последовательностей должны совпадать.',
-        input2: 'Длины последовательностей должны совпадать.',
-      });
-    } else {
-      setErrors({ input1: err1, input2: err2 });
-    }
-
-    if (!err1 && !err2 && data.input1.length === data.input2.length) {
-      console.log('Данные корректны');
-      // if(data.input1.length !== data.input2.length) {
-      //   setErrors({ input1: "Длины последовательностей должны совпадать.", input2: "Длины последовательностей должны совпадать." })
-      // }
-      setShowViewer(true);
-    } else {
-      console.log('Данные не корректны');
-      setShowViewer(false);
-    }
-  }
 
   return (
-    <>
-      <button onClick={() => navigate('/form')}>Form</button>
-      <div>
-        <button onClick={() => navigate('/useRef')}> usRef</button>
-      </div>
-      <div>
-        <button onClick={() => navigate('/saveYouTubeVideo')}>
-          Save YouTube Video
-        </button>
-      </div>
-      <div>
-        <button onClick={() => navigate('/saveYandexDisc')}>
-          {' '}
-          SaveYandexDisc{' '}
-        </button>
-      </div>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        position: 'relative',
+        overflow: 'hidden',
+        background:
+          'radial-gradient(circle at top left, rgba(255, 237, 213, 0.9) 0%, rgba(255, 255, 255, 0.9) 55%), radial-gradient(circle at 90% 20%, rgba(186, 230, 253, 0.6) 0%, rgba(255, 255, 255, 0.2) 35%)',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          inset: 0,
+          background:
+            'radial-gradient(120px 120px at 15% 20%, rgba(253, 224, 71, 0.35), transparent 60%), radial-gradient(160px 160px at 85% 35%, rgba(34, 197, 94, 0.2), transparent 65%), radial-gradient(220px 220px at 30% 85%, rgba(56, 189, 248, 0.25), transparent 70%)',
+          pointerEvents: 'none',
+        },
+      }}
+    >
       <Container
-        maxWidth="sm"
+        maxWidth="md"
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          position: 'relative',
+          zIndex: 1,
+          pt: { xs: 6, md: 10 },
+          pb: { xs: 6, md: 10 },
         }}
       >
-        <Box textAlign="center" mt={6} mb={3}>
-          <Typography style={{ color: 'blue' }}> Insert your Amino</Typography>
+        <Box sx={{ textAlign: 'left', maxWidth: 640, mb: 5 }}>
+          <Typography
+            variant="overline"
+            sx={{ color: '#0b1d1d', opacity: 0.6 }}
+          >
+            Proteins toolkit
+          </Typography>
+          <Typography
+            variant="h3"
+            sx={{
+              fontWeight: 700,
+              color: '#0b1d1d',
+              mt: 1,
+              letterSpacing: '-0.02em',
+            }}
+          >
+            Быстрые переходы по инструментам
+          </Typography>
+          <Typography sx={{ color: '#0b1d1d', opacity: 0.7, mt: 1 }}>
+            Выберите нужный раздел.
+          </Typography>
         </Box>
 
         <Box
-          style={{ display: 'flex' }}
-          component="form"
-          onSubmit={(e) => handleSubmit(e)}
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+            gap: 2,
+          }}
         >
-          <Box mb={2} marginLeft="1rem">
-            <TextField
-              label="Последовательность 2"
-              name="input1"
-              onChange={(e) => handelDatas(e)}
-              helperText={errors.input1}
-              error={!!errors.input1}
-              InputLabelProps={{ style: { fontSize: '0.9rem' } }}
-              FormHelperTextProps={{
-                style: { color: '#ff4081', fontSize: '0.875rem' },
-              }}
-            ></TextField>
-          </Box>
-          <Box mb={2} marginLeft="1rem">
-            <TextField
-              label="Последовательность 1"
-              name="input2"
-              onChange={(e) => handelDatas(e)}
-              helperText={errors.input2}
-              error={!!errors.input2}
-              InputLabelProps={{ style: { fontSize: '0.9rem' } }}
-              FormHelperTextProps={{
-                style: { color: '#ff4081', fontSize: '0.875rem' },
-              }}
-            ></TextField>
-          </Box>
-
-          <Box margin="0.7rem 0rem 0rem 1rem">
-            <Button type="submit" variant="contained" endIcon={<SendIcon />} />
-          </Box>
+          <Button sx={buttonStyles} onClick={() => navigate('/amino-aligner')}>
+            Amino Aligner
+          </Button>
+          <Button sx={buttonStyles} onClick={() => navigate('/form')}>
+            Form
+          </Button>
+          <Button sx={buttonStyles} onClick={() => navigate('/useRef')}>
+            UseRef
+          </Button>
+          <Button
+            sx={buttonStyles}
+            onClick={() => navigate('/saveYouTubeVideo')}
+          >
+            Save YouTube Video
+          </Button>
+          <Button sx={buttonStyles} onClick={() => navigate('/saveYandexDisc')}>
+            Save Yandex Disc
+          </Button>
         </Box>
-        <AlignmentViewer
-          seq1={data.input1}
-          seq2={data.input2}
-          showViewer={showViewer}
-          onCopy={handleCopy}
-        />
-        <Snackbar
-          open={snackOpen}
-          message="Скопировано в буфер"
-          autoHideDuration={1000}
-          onClose={() => setSnackOpen(false)}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        />
       </Container>
-    </>
+    </Box>
   );
 }
 
