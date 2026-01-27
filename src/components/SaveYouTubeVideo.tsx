@@ -49,10 +49,11 @@ type RequestState =
   | 'success'
   | 'error';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:4000';
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL_SERVER_TOUTUBE ?? 'http://localhost:4000';
 const pickDefaultFormatId = (formatList: FormatOption[]): string => {
   const mp4WithAudio = formatList.find(
-    (format) => format.ext === 'mp4' && format.hasAudio
+    (format) => format.ext === 'mp4' && format.hasAudio,
   );
   const mp4Any = formatList.find((format) => format.ext === 'mp4');
   return (
@@ -66,7 +67,7 @@ export function SaveYouTubeVideo() {
   const [formats, setFormats] = useState<FormatOption[]>([]);
   const [selectedFormatId, setSelectedFormatId] = useState<string>('');
   const [downloadMode, setDownloadMode] = useState<'video' | 'merged'>(
-    'merged'
+    'merged',
   );
   const [requestState, setRequestState] = useState<RequestState>('idle');
   const [error, setError] = useState<string | null>(null);
@@ -76,15 +77,15 @@ export function SaveYouTubeVideo() {
 
   const canDownload = useMemo(
     () => Boolean(videoDetails) && Boolean(selectedFormatId),
-    [selectedFormatId, videoDetails]
+    [selectedFormatId, videoDetails],
   );
   const selectedFormatMeta = useMemo(
     () =>
       formats.find((format) => format.formatId === selectedFormatId) ?? null,
-    [formats, selectedFormatId]
+    [formats, selectedFormatId],
   );
   const canDownloadVideoOnly = Boolean(
-    selectedFormatMeta && !selectedFormatMeta.hasAudio
+    selectedFormatMeta && !selectedFormatMeta.hasAudio,
   );
   const downloadExtension = useMemo(() => {
     if (!selectedFormatMeta) {
@@ -107,7 +108,7 @@ export function SaveYouTubeVideo() {
     setError(null);
     try {
       const response = await fetch(
-        `${API_BASE_URL}/api/info?url=${encodeURIComponent(url)}`
+        `${API_BASE_URL}/api/info?url=${encodeURIComponent(url)}`,
       );
       if (!response.ok) {
         throw new Error('Не удалось получить данные о видео.');
@@ -126,7 +127,7 @@ export function SaveYouTubeVideo() {
       setSelectedFormatId(defaultFormatId);
       const defaultFormat =
         availableFormats.find(
-          (format: FormatOption) => format.formatId === defaultFormatId
+          (format: FormatOption) => format.formatId === defaultFormatId,
         ) ?? null;
       setDownloadMode('merged');
       setRequestState('ready');
@@ -139,7 +140,7 @@ export function SaveYouTubeVideo() {
       setError(
         fetchError instanceof Error
           ? fetchError.message
-          : 'Неизвестная ошибка при загрузке информации.'
+          : 'Неизвестная ошибка при загрузке информации.',
       );
     }
   }, []);
@@ -155,7 +156,7 @@ export function SaveYouTubeVideo() {
       }
       fetchVideoInfo(videoUrl.trim());
     },
-    [fetchVideoInfo, validateUrl, videoUrl]
+    [fetchVideoInfo, validateUrl, videoUrl],
   );
 
   const formatFileSize = (size?: number) => {
@@ -178,14 +179,14 @@ export function SaveYouTubeVideo() {
       const safeTitle = videoDetails.title.replace(/[\\/:*?"<>|]+/g, '').trim();
       const response = await fetch(
         `${API_BASE_URL}/api/download?url=${encodeURIComponent(
-          videoUrl
+          videoUrl,
         )}&formatId=${encodeURIComponent(
-          selectedFormatId
+          selectedFormatId,
         )}&mode=${downloadMode}&formatExt=${
           selectedFormatMeta?.ext ?? ''
         }&vcodec=${encodeURIComponent(
-          selectedFormatMeta?.vcodec ?? ''
-        )}&fileName=${encodeURIComponent(safeTitle)}`
+          selectedFormatMeta?.vcodec ?? '',
+        )}&fileName=${encodeURIComponent(safeTitle)}`,
       );
       if (!response.ok) {
         throw new Error('Не удалось начать загрузку.');
@@ -207,7 +208,7 @@ export function SaveYouTubeVideo() {
       setError(
         downloadError instanceof Error
           ? downloadError.message
-          : 'Неизвестная ошибка при скачивании.'
+          : 'Неизвестная ошибка при скачивании.',
       );
     }
   }, [
@@ -317,7 +318,7 @@ export function SaveYouTubeVideo() {
               value={selectedFormatId}
               onChange={(event) => {
                 const nextFormat = formats.find(
-                  (format) => format.formatId === event.target.value
+                  (format) => format.formatId === event.target.value,
                 );
                 setSelectedFormatId(event.target.value);
                 if (nextFormat?.hasAudio) {
