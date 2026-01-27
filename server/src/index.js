@@ -93,10 +93,12 @@ app.get('/api/download', async (req, res) => {
   if (!safeUrl || !formatId) {
     return res.status(400).json({ error: 'Missing url or formatId parameter' });
   }
-  const sanitizedName =
+  const rawTitle =
     typeof fileName === 'string' && fileName.trim()
       ? fileName.replace(/[\\/:*?"<>|]+/g, '').trim()
       : 'youtube-video';
+  const asciiTitle = rawTitle.replace(/[^\x20-\x7E]+/g, '_') || 'youtube-video';
+  const encodedTitle = encodeURIComponent(rawTitle);
 
   try {
     const downloadMode = mode === 'video' ? 'video' : 'merged';
@@ -158,7 +160,7 @@ app.get('/api/download', async (req, res) => {
       res.setHeader('Content-Type', 'video/mp4');
       res.setHeader(
         'Content-Disposition',
-        `attachment; filename="${sanitizedName}.mp4"`
+        `attachment; filename="${asciiTitle}.mp4"; filename*=UTF-8''${encodedTitle}.mp4`
       );
 
       const cleanup = async () => {
@@ -191,7 +193,7 @@ app.get('/api/download', async (req, res) => {
     );
     res.setHeader(
       'Content-Disposition',
-      `attachment; filename="${sanitizedName}.${targetExt}"`
+      `attachment; filename="${asciiTitle}.${targetExt}"; filename*=UTF-8''${encodedTitle}.${targetExt}`
     );
 
     const downloadProcess = ytdlp.exec(
