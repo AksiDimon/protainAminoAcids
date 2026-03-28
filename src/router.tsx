@@ -7,6 +7,7 @@ import { SaveYouTubeVideo } from './components/SaveYouTubeVideo';
 import { SaveYandexDisc } from './components/SaveYandexDisc';
 import VideoPlayer from './useRefVideo';
 import AminoAligner from './AminoAligner';
+import MosKvartalPage from './pages/mos-kvartal/MosKvartalPage';
 const basename = import.meta.env.BASE_URL;
 
 export const router = createBrowserRouter(
@@ -22,6 +23,7 @@ export const router = createBrowserRouter(
         { path: 'saveYouTubeVideo', element: <SaveYouTubeVideo /> },
         { path: 'saveYandexDisc', element: <SaveYandexDisc /> },
         { path: 'videoPlayerRef', element: <VideoPlayer /> },
+        { path: 'mos-kvartal', element: <MosKvartalPage /> },
       ],
     },
   ],
